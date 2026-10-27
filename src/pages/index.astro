@@ -6,6 +6,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 
 const modelChallengeUrl = 'https://github.com/software-dog/Seculana-Web/issues/new?template=hard-model.yml';
 const stateShowcaseUrl = `${import.meta.env.BASE_URL}showcase/state/`;
+const decisionsShowcaseUrl = `${import.meta.env.BASE_URL}showcase/decisions/`;
 ---
 <BaseLayout
   title="Seculana | Financial models that read like the plan"
@@ -152,6 +153,10 @@ const stateShowcaseUrl = `${import.meta.env.BASE_URL}showcase/state/`;
             <p>Move from the financial story to the model explanation to detailed calculation proof.</p>
             <StatusChip tone="live" label="Implemented" />
           </article>
+        </div>
+        <div class="section-cta">
+          <a class="button button--solid" href={decisionsShowcaseUrl}>Explore the decision engine</a>
+          <span>Scenarios → solve → explore → optimize → sensitivity</span>
         </div>
       </div>
     </section>

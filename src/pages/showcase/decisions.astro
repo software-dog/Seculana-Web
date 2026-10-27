@@ -1,0 +1,265 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import StatusChip from '../../components/StatusChip.astro';
+
+const home = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Ask the plan | Seculana"
+  description="See how Seculana turns a deterministic financial model into scenarios, exact solves, searches, optimizations, and sensitivity analysis."
+>
+  <SiteHeader />
+
+  <main id="main" class="deep-page">
+    <section class="deep-hero decision-hero section-shell">
+      <a class="back-link" href={`${home}#questions`}>← Back to the story</a>
+      <p class="eyebrow">From calculation to decision</p>
+      <h1>Ask the plan.</h1>
+      <p class="lede">
+        A spreadsheet usually starts with inputs and ends with outputs. Seculana can keep the
+        financial system fixed, then deliberately change assumptions, solve backward for a target,
+        search a policy space, or ask what matters most.
+      </p>
+
+      <div class="decision-ribbon" aria-label="Ways to ask a Seculana model questions">
+        <div><strong>What if?</strong><span>scenario</span></div>
+        <i aria-hidden="true"></i>
+        <div><strong>What exactly works?</strong><span>solve / best</span></div>
+        <i aria-hidden="true"></i>
+        <div><strong>How does it vary?</strong><span>explore</span></div>
+        <i aria-hidden="true"></i>
+        <div><strong>Which policy wins?</strong><span>optimize</span></div>
+        <i aria-hidden="true"></i>
+        <div><strong>What drives it?</strong><span>sensitivity</span></div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--ink">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow eyebrow--light">1 · Branch the plan</p>
+          <h2>Change one assumption without copying the model.</h2>
+          <p class="section-lede">
+            A scenario replaces or adds declarations over the same model. Sam and Alex can endure a
+            market crash, spend less, or combine both, while the underlying tax, account, and time
+            semantics stay the same.
+          </p>
+          <StatusChip tone="live" label="Implemented" />
+        </div>
+        <div class="code-panel">
+          <p class="code-panel-label">examples/sam-and-alex.sec</p>
+          <pre><code><span class="code-key">scenario</span> Crash &#123;
+    let Growth = &#123; 2027: -25%, 2028: -8%, else: 6% &#125;
+&#125;
+
+<span class="code-key">scenario</span> Frugal &#123;
+    let Living = @Living * (1 + Inflation)
+        starting $46,000
+&#125;
+
+<span class="code-key">scenario</span> CrashButFrugal based on Crash &#123;
+    let Living = @Living * (1 + Inflation)
+        starting $46,000
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell scenario-fork" aria-label="One model branching into three scenarios">
+        <div class="scenario-base"><span>Base model</span><strong>one source of truth</strong></div>
+        <div class="scenario-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="scenario-branches">
+          <div><span>Crash</span><strong>returns change</strong></div>
+          <div><span>Frugal</span><strong>spending changes</strong></div>
+          <div><span>Crash + Frugal</span><strong>scenario based on scenario</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--proof">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow">2 · Reverse the arrow</p>
+          <h2>Sometimes the unknown belongs on the left.</h2>
+          <p class="section-lede">
+            Instead of guessing an input and seeing the answer, <code>solve</code> finds the input
+            that makes two sides equal. <code>best</code> finds the value in a range that minimizes
+            or maximizes an objective.
+          </p>
+        </div>
+
+        <div class="inverse-grid">
+          <article>
+            <p class="question-word">Target → required input</p>
+            <h3>What salary takes home $100,000 after tax?</h3>
+            <div class="code-panel code-panel--light">
+              <pre><code><span class="code-key">let</span> GrossNeeded =
+    <span class="code-key">solve</span> g from $0 to $500,000
+    so that
+        g - Tax.IncomeTax(Province, g, 0, Indexation)
+        == $100,000</code></pre>
+            </div>
+          </article>
+          <article>
+            <p class="question-word">Range → best point</p>
+            <h3>What pension split produces the lowest household tax?</h3>
+            <div class="code-panel code-panel--light">
+              <pre><code><span class="code-key">let</span> Split =
+    <span class="code-key">best</span> s from 0 to Pension / 2
+    <span class="code-key">for lowest</span> HouseholdTax(s)</code></pre>
+            </div>
+          </article>
+        </div>
+
+        <div class="inverse-note">
+          <strong>Same evaluator, many tries.</strong>
+          <span>The search varies the temporary decision. The financial model still decides whether each try is valid and what it produces.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow">3 · Map the landscape</p>
+          <h2>Explore before you optimize.</h2>
+          <p class="section-lede">
+            An exploration varies one or two model values and shows the outcomes at each point.
+            Lise and Omar can see how an RRSP-meltdown amount changes both the after-tax estate and
+            lifetime tax before asking an optimizer to choose.
+          </p>
+          <StatusChip tone="live" label="Implemented" />
+        </div>
+        <div class="code-panel code-panel--light">
+          <p class="code-panel-label">examples/lise-and-omar.sec</p>
+          <pre><code><span class="code-key">explore</span> Melt &#123;
+    <span class="code-key">vary</span> Meltdown from 0 to 40000 step 10000
+    <span class="code-key">show</span> EstateToday, TotalTax
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell exploration-strip" aria-label="Illustrative exploration points">
+        <div><span>$0</span><small>policy point</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>$10k</span><small>run model</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>$20k</span><small>run model</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>$30k</span><small>run model</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>$40k</span><small>compare outcomes</small></div>
+      </div>
+      <p class="section-shell fine-print">
+        The strip shows the written policy points, not their numerical results. Seculana evaluates the real model at every point.
+      </p>
+    </section>
+
+    <section class="story-section story-section--showcase">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow eyebrow--light">4 · Choose across the whole plan</p>
+          <h2>Optimization is policy search wrapped around the model.</h2>
+          <p class="section-lede">
+            In Lise and Omar, the withdrawal order itself is a decision. With five sources there are
+            120 possible orders. The optimizer can choose the order that leaves the largest estate
+            while requiring that the household never runs short.
+          </p>
+        </div>
+
+        <div class="optimization-layout">
+          <div class="code-panel">
+            <p class="code-panel-label">One decision: the order</p>
+            <pre><code><span class="code-key">optimize</span> BestOrder &#123;
+    <span class="code-key">vary order of</span> Living
+    <span class="code-key">for highest</span> EstateToday
+    <span class="code-key">keep</span> YearsShort == 0
+&#125;</code></pre>
+          </div>
+          <div class="code-panel">
+            <p class="code-panel-label">Two decisions together</p>
+            <pre><code><span class="code-key">optimize</span> BestPlan &#123;
+    <span class="code-key">vary order of</span> Living
+    <span class="code-key">vary</span> Meltdown from 0 to 40000 step 5000
+    <span class="code-key">for highest</span> EstateToday
+    <span class="code-key">keep</span> YearsShort == 0
+    tries 400
+&#125;</code></pre>
+          </div>
+        </div>
+
+        <div class="optimizer-logic" aria-label="Optimization loop">
+          <div><span>Propose</span><strong>a policy</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Run</span><strong>the real model</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Check</span><strong>constraints</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Rank</span><strong>the objective</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Search</span><strong>again</strong></div>
+        </div>
+        <p class="fine-print fine-print--light">
+          The current optimizer is a deterministic local search. It can find a strong point near where it searched; it does not claim a mathematical proof of the global optimum.
+        </p>
+      </div>
+    </section>
+
+    <section class="story-section story-section--roadmap">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow">5 · Find the fragile assumptions</p>
+          <h2>Which guess moves the answer most?</h2>
+          <p class="section-lede">
+            Sensitivity moves one assumption at a time while the rest of the plan stays as written.
+            Its tornado ranks the swing, its spider plot shows shape, and it can also measure
+            contribution to variance when randomness is present.
+          </p>
+          <StatusChip tone="live" label="Implemented" />
+        </div>
+        <div class="code-panel code-panel--light">
+          <p class="code-panel-label">examples/lise-and-omar.sec</p>
+          <pre><code><span class="code-key">sensitivity</span> Drivers &#123;
+    <span class="code-key">of</span> EstateToday
+    <span class="code-key">vary</span> CPI, Returns, CashRate
+    <span class="code-key">vary</span> Meltdown from 0 to 40000
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell sensitivity-bars" aria-label="Conceptual sensitivity ranking">
+        <div><span>largest swing</span><i style="--w: 94%"></i><strong>ranked first</strong></div>
+        <div><span>next</span><i style="--w: 68%"></i><strong>ranked by effect</strong></div>
+        <div><span>smaller</span><i style="--w: 39%"></i><strong>less influential</strong></div>
+      </div>
+      <p class="section-shell fine-print">
+        These bars explain the tornado concept; they are not Lise and Omar's measured sensitivity values. Authentic result graphics will come from Seculana itself.
+      </p>
+    </section>
+
+    <section class="story-section closing-section">
+      <div class="section-shell closing-grid">
+        <div>
+          <p class="eyebrow">The pattern</p>
+          <h2>Propose. Run. Verify.</h2>
+        </div>
+        <div class="closing-copy">
+          <p>
+            Scenarios, solves, explorations, optimizations, and sensitivity all gain their meaning
+            from the same financial model. The question changes. The authority does not.
+          </p>
+          <p>
+            The next layer is uncertainty: keep the model and the decision machinery, then let the
+            assumptions themselves move across reproducible futures.
+          </p>
+          <a class="button button--solid" href={`${home}#proof`}>Back to the main story</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <p><strong>Seculana</strong> · Ask the plan.</p>
+    <p>Every Seculana snippet on this page comes from the current repository or manual.</p>
+  </footer>
+</BaseLayout>
