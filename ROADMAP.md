@@ -76,12 +76,13 @@ Create the smallest maintainable static-site foundation.
 **Gate:** clean build from a fresh checkout.
 
 ### Increment 1.1a — GitHub Pages preview
-Status: workflow ready; repository setting pending
+Status: complete
 
 - Build and upload the static site on every push to `main`.
 - Deploy through the `github-pages` environment.
-- Repository owner must enable **Settings → Pages → Source → GitHub Actions** once; the connector cannot change that repository setting.
-- After enablement, the next push should publish the preview automatically.
+- Repository owner enabled **Settings → Pages → Source → GitHub Actions**.
+- Successful pushes to `main` now publish the preview automatically.
+- Current preview: `https://software-dog.github.io/Seculana-Web/`.
 
 ### Increment 1.2 — Home-page narrative skeleton
 Status: complete
@@ -102,6 +103,7 @@ Use code, CSS diagrams, and intentional media placeholders rather than synthetic
 **Gate:** a visitor can understand the central idea from one scroll.
 
 ### Increment 1.3 — Visual system and motion
+Status: complete
 
 Add the visual language that makes the site memorable:
 
