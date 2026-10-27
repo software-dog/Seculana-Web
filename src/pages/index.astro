@@ -2,26 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CapturePlaceholder from '../components/CapturePlaceholder.astro';
 import StatusChip from '../components/StatusChip.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 
 const modelChallengeUrl = 'https://github.com/software-dog/Seculana-Web/issues/new?template=hard-model.yml';
+const stateShowcaseUrl = `${import.meta.env.BASE_URL}showcase/state/`;
 ---
 <BaseLayout
   title="Seculana | Financial models that read like the plan"
   description="Seculana is a declarative language for financial models: accounts, taxes, life events, decisions, uncertainty, and explanations written around the financial system itself."
 >
-  <header class="site-header">
-    <a class="wordmark" href={import.meta.env.BASE_URL} aria-label="Seculana home">
-      <span class="wordmark-mark" aria-hidden="true">S</span>
-      <span>Seculana</span>
-    </a>
-    <nav aria-label="Primary">
-      <a href="#idea">The idea</a>
-      <a href="#questions">Questions</a>
-      <a href="#proof">Proof</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#join">Get involved</a>
-    </nav>
-  </header>
+  <SiteHeader />
 
   <main id="main">
     <section class="hero section-shell">
@@ -83,6 +73,7 @@ const modelChallengeUrl = 'https://github.com/software-dog/Seculana-Web/issues/n
             <span class="concept-number">01</span>
             <h3>State</h3>
             <p>Accounts open, grow, receive money, pay money, hit floors, run short, and close.</p>
+            <a class="concept-link" href={stateShowcaseUrl}>See state in action <span aria-hidden="true">→</span></a>
           </article>
           <article class="concept-card">
             <span class="concept-number">02</span>

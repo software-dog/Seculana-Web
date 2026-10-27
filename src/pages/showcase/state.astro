@@ -1,0 +1,225 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+
+const home = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="Money has memory | Seculana"
+  description="See how Seculana models time, balances, named flows, priorities, transfers, paid amounts, shortfalls, and multi-account draws."
+>
+  <SiteHeader />
+
+  <main id="main" class="deep-page">
+    <section class="deep-hero section-shell">
+      <a class="back-link" href={`${home}#idea`}>← Back to the story</a>
+      <p class="eyebrow">State, not spreadsheet plumbing</p>
+      <h1>Money has memory.</h1>
+      <p class="lede">
+        A financial account is not just this year's number. It has an opening state, growth,
+        money coming in, requests going out, what it could actually pay, what it could not pay,
+        and the state it carries into the next period.
+      </p>
+
+      <div class="state-equation" aria-label="Balance state equation">
+        <div><span>Opening</span><strong>start here</strong></div>
+        <b aria-hidden="true">+</b>
+        <div><span>Growth</span><strong>on opening</strong></div>
+        <b aria-hidden="true">+</b>
+        <div><span>Inflows</span><strong>money in</strong></div>
+        <b aria-hidden="true">−</b>
+        <div><span>Paid</span><strong>what left</strong></div>
+        <b aria-hidden="true">=</b>
+        <div class="state-equation__result"><span>Closing</span><strong>next period</strong></div>
+      </div>
+      <p class="fine-print">If requested outflows exceed what is available, the unpaid amount is <code>Shortfall</code>. The balance does not silently go below its floor.</p>
+    </section>
+
+    <section class="story-section story-section--proof">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow">1 · Time</p>
+          <h2>Previous period is explicit.</h2>
+          <p class="section-lede">
+            In the public Sam and Alex example, <code>@Salary</code> means last period's salary.
+            <code>starting</code> supplies the first value. Declaration order is not calculation order;
+            Seculana discovers dependencies.
+          </p>
+        </div>
+        <div class="code-panel code-panel--light">
+          <p class="code-panel-label">examples/sam-and-alex.sec</p>
+          <pre><code><span class="code-key">let</span> Salary = @Salary * (1 + Raise)
+    <span class="code-key">starting</span> $95,000
+
+<span class="code-key">let</span> Living = @Living * (1 + Inflation)
+    <span class="code-key">starting</span> $52,000</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell period-strip" aria-label="Salary carried forward through time">
+        <div><span>2026</span><strong>$95,000.00</strong><small>starting value</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>2027</span><strong>$97,850.00</strong><small>last year × 1.03</small></div>
+        <i aria-hidden="true"></i>
+        <div><span>2028</span><strong>$100,785.50</strong><small>carried forward again</small></div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow">2 · The account itself</p>
+          <h2>One balance exposes the whole little state machine.</h2>
+          <p class="section-lede">
+            A balance has named parts that the rest of the model can inspect. Growth happens on the
+            opening balance. Flows happen after it. What cannot be paid becomes visible instead of vanishing.
+          </p>
+        </div>
+
+        <div class="balance-machine" aria-label="Balance parts and their relationships">
+          <div class="balance-node"><span>Opening</span><small>first opening, then prior Closing</small></div>
+          <i aria-hidden="true"></i>
+          <div class="balance-node"><span>Growth</span><small>Opening × rate</small></div>
+          <i aria-hidden="true"></i>
+          <div class="balance-node"><span>Inflows</span><small>sum of money in</small></div>
+          <i aria-hidden="true"></i>
+          <div class="balance-node balance-node--decision">
+            <span>Available</span><small>what can actually leave</small>
+            <div class="balance-branch">
+              <strong>Paid</strong>
+              <strong>Shortfall</strong>
+            </div>
+          </div>
+          <i aria-hidden="true"></i>
+          <div class="balance-node balance-node--result"><span>Closing</span><small>state carried forward</small></div>
+        </div>
+
+        <div class="deep-code-wide">
+          <div class="code-panel">
+            <p class="code-panel-label">The language surface</p>
+            <pre><code><span class="code-key">balance</span> Rrsp opening $500,000 growth 6% outflow $50,000
+<span class="code-key">balance</span> Tfsa opening $25,000 growth 6% inflow Deposit outflow Withdrawal
+
+<span class="code-key">let</span> Income = Rrsp.Paid
+<span class="code-key">let</span> Unpaid = Tfsa.Shortfall</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--ink">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow eyebrow--light">3 · Competing claims</p>
+          <h2>Names and priorities turn cash flow into policy.</h2>
+          <p class="section-lede">
+            A named outflow has its own requested amount, <code>Paid</code>, and <code>Shortfall</code>.
+            Priorities decide which claims on an account are paid first. A transfer is one account's
+            outflow and another account's inflow.
+          </p>
+        </div>
+        <div class="code-panel">
+          <p class="code-panel-label">seculana-transfer(5) example</p>
+          <pre><code><span class="code-key">balance</span> Savings opening $1,000 inflow Pay = Wages
+    outflow Rent = $700 priority 2
+    outflow Groceries = Food priority 1
+    outflow Fun = $300
+
+<span class="code-key">balance</span> Tfsa opening $0 growth 5%
+
+<span class="code-key">transfer</span> ToTfsa = min(Surplus, TfsaRoom)
+    from Savings to Tfsa priority 1</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell priority-board" aria-label="Priority ordering of account outflows">
+        <div class="priority-source">
+          <span>Savings</span>
+          <strong>$ available</strong>
+        </div>
+        <div class="priority-stack">
+          <div><b>1</b><span>Groceries</span><small>named outflow</small></div>
+          <div><b>1</b><span>ToTfsa</span><small>transfer out</small></div>
+          <div><b>2</b><span>Rent</span><small>named outflow</small></div>
+          <div><b>—</b><span>Fun</span><small>then the rest</small></div>
+        </div>
+        <div class="priority-result">
+          <span>Each claim</span>
+          <strong>Paid up to what remains</strong>
+          <small>anything unpaid is observable</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--proof">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow">4 · Failure is a value</p>
+          <h2>A shortage does not disappear into the formula.</h2>
+          <p class="section-lede">
+            Seculana keeps the distinction between what was requested and what was actually possible.
+            That lets a later source cover the gap, a report expose it, or a constraint reject the plan.
+          </p>
+          <div class="shortfall-equation">
+            <span>Outflows asked for</span>
+            <b>−</b>
+            <span>Paid</span>
+            <b>=</b>
+            <strong>Shortfall</strong>
+          </div>
+        </div>
+        <div class="code-panel code-panel--light">
+          <p class="code-panel-label">Named results are ordinary model values</p>
+          <pre><code><span class="code-key">let</span> RentMissed = Savings.Rent.Shortfall
+<span class="code-key">let</span> Saved      = ToTfsa.Paid</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow">5 · Several accounts, one need</p>
+          <h2>A draw makes withdrawal policy explicit.</h2>
+          <p class="section-lede">
+            The retirement-income example asks three accounts to fund one after-tax need in order.
+            The pre-tax source is grossed up for the tax its own withdrawal creates.
+          </p>
+        </div>
+
+        <div class="draw-showcase">
+          <div class="code-panel">
+            <p class="code-panel-label">examples/004-retirement-income.sec</p>
+            <pre><code><span class="code-key">draw</span> Living = Need from
+    Taxable,
+    PreTax after tax(g) = TaxOn(Pension + g) - PensionTax,
+    TaxFree</code></pre>
+          </div>
+          <div class="draw-path" aria-label="Draw source order">
+            <div><span>Need</span><strong>after-tax spending gap</strong></div>
+            <i aria-hidden="true"></i>
+            <div><span>1 · Taxable</span><strong>first source</strong></div>
+            <i aria-hidden="true"></i>
+            <div><span>2 · PreTax</span><strong>gross up for its tax</strong></div>
+            <i aria-hidden="true"></i>
+            <div><span>3 · TaxFree</span><strong>only if still needed</strong></div>
+          </div>
+        </div>
+
+        <div class="state-takeaway">
+          <p class="eyebrow">The point</p>
+          <p>
+            The model is not merely evaluating algebra. It is preserving financial state while
+            enforcing the ordering, capacity, tax, and shortage semantics that make the algebra mean something.
+          </p>
+          <a class="button button--solid" href={`${home}#questions`}>Next: ask the plan questions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <p><strong>Seculana</strong> · Money has state.</p>
+    <p>Examples on this page are drawn from the current Seculana repository and manual.</p>
+  </footer>
+</BaseLayout>
