@@ -119,6 +119,7 @@ Add the visual language that makes the site memorable:
 ## Phase 2 — Show, don't merely tell
 
 ### Increment 2.1 — Language and state showcase
+Status: complete
 
 Demonstrate verified examples of:
 
