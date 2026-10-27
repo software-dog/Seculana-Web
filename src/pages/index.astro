@@ -214,20 +214,20 @@ const modelChallengeUrl = 'https://github.com/software-dog/Seculana-Web/issues/n
         <div class="showcase-code-grid">
           <div class="code-panel">
             <p class="code-panel-label">Choose a withdrawal order</p>
-            <pre><code><span class="code-key">optimize</span> BestOrder {
+            <pre><code><span class="code-key">optimize</span> BestOrder &#123;
     <span class="code-key">vary order of</span> Living
     <span class="code-key">for highest</span> EstateToday
     <span class="code-key">keep</span> YearsShort == 0
-}</code></pre>
+&#125;</code></pre>
           </div>
           <div class="code-panel">
             <p class="code-panel-label">Then let markets move</p>
-            <pre><code><span class="code-key">explore</span> Risk {
+            <pre><code><span class="code-key">explore</span> Risk &#123;
     <span class="code-key">scenario</span> Markets
     <span class="code-key">runs</span> 500
     <span class="code-key">seed</span> 7
     <span class="code-key">show</span> EstateToday, TotalTax
-}</code></pre>
+&#125;</code></pre>
           </div>
         </div>
 
