@@ -1,15 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CapturePlaceholder from '../components/CapturePlaceholder.astro';
+import StatusChip from '../components/StatusChip.astro';
+
+const modelChallengeUrl = 'https://github.com/software-dog/Seculana-Web/issues/new?template=hard-model.yml';
 ---
 <BaseLayout
-  title="Seculana — financial models that read like the plan"
-  description="Seculana is a declarative language for financial models: accounts, taxes, life events, decisions and uncertainty written as the plan itself."
+  title="Seculana | Financial models that read like the plan"
+  description="Seculana is a declarative language for financial models: accounts, taxes, life events, decisions, uncertainty, and explanations written around the financial system itself."
 >
   <header class="site-header">
-    <a class="wordmark" href={import.meta.env.BASE_URL} aria-label="Seculana home">Seculana</a>
+    <a class="wordmark" href={import.meta.env.BASE_URL} aria-label="Seculana home">
+      <span class="wordmark-mark" aria-hidden="true">S</span>
+      <span>Seculana</span>
+    </a>
     <nav aria-label="Primary">
       <a href="#idea">The idea</a>
+      <a href="#questions">Questions</a>
       <a href="#proof">Proof</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#join">Get involved</a>
@@ -18,45 +25,336 @@ import CapturePlaceholder from '../components/CapturePlaceholder.astro';
 
   <main id="main">
     <section class="hero section-shell">
-      <p class="eyebrow">A language for money over time</p>
-      <h1>Financial models that read like the plan, not like a spreadsheet.</h1>
-      <p class="lede">This is the Phase 1 skeleton. The story, examples and authentic Seculana captures arrive increment by increment.</p>
-      <div class="hero-code" aria-label="A small Seculana example">
-        <pre><code><span>years 2026 to 2035</span>
+      <div class="hero-copy">
+        <p class="eyebrow">A declarative language for money over time</p>
+        <h1>Financial models that read like the plan, not like a spreadsheet.</h1>
+        <p class="lede">
+          Describe the financial system in financial terms. Seculana discovers the dependencies,
+          calculates the plan period by period, and can show where an answer came from.
+        </p>
+        <div class="hero-actions">
+          <a class="button button--solid" href="#proof">See the proof</a>
+          <a class="button button--quiet" href="#roadmap">See where it is going</a>
+        </div>
+      </div>
 
-<span>let Salary = @Salary * (1 + 3%) starting $95,000</span>
-<span>let Saved  = Salary * 15%</span>
+      <div class="hero-code" aria-label="A small Seculana model">
+        <div class="code-topline">
+          <span>nest-egg.sec</span>
+          <span>6 lines, 10 years</span>
+        </div>
+        <pre><code><span class="code-key">years</span> 2026 <span class="code-key">to</span> 2035
 
-<span>balance Nest opening $40,000 growth 6% inflow Saved</span></code></pre>
+<span class="code-key">let</span> Salary = @Salary * (1 + 3%)  <span class="code-key">starting</span> $95,000
+<span class="code-key">let</span> Saved  = Salary * 15%
+
+<span class="code-key">balance</span> Nest <span class="code-key">opening</span> $40,000 <span class="code-key">growth</span> 6%
+    <span class="code-key">inflow</span> Saved</code></pre>
+        <div class="code-caption">
+          <span>No copied formulas.</span>
+          <span>No loop.</span>
+          <span>The account behaves like an account.</span>
+        </div>
+      </div>
+
+      <div class="capability-line" aria-label="Selected implemented capabilities">
+        <span>exact money</span>
+        <span>stateful balances</span>
+        <span>scenarios</span>
+        <span>optimization</span>
+        <span>Monte Carlo</span>
+        <span>explanations</span>
       </div>
     </section>
 
-    <section id="idea" class="section-shell placeholder-section">
-      <p class="eyebrow">Recognition</p>
-      <h2>Money has state, rules, choices and consequences.</h2>
-      <p>Balances, flows, taxes, priorities, scenarios and uncertainty belong in the model as financial ideas, not hidden plumbing.</p>
+    <section id="idea" class="story-section story-section--ink">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow eyebrow--light">The recognition</p>
+          <h2>A financial plan is not a pile of formulas.</h2>
+          <p class="section-lede">
+            It is a system with state, rules, choices, uncertainty, and things that must happen
+            before other things may happen.
+          </p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <span class="concept-number">01</span>
+            <h3>State</h3>
+            <p>Accounts open, grow, receive money, pay money, hit floors, run short, and close.</p>
+          </article>
+          <article class="concept-card">
+            <span class="concept-number">02</span>
+            <h3>Rules</h3>
+            <p>Taxes, pensions, minimum withdrawals, priorities, and constraints stay visible in the model.</p>
+          </article>
+          <article class="concept-card">
+            <span class="concept-number">03</span>
+            <h3>Choices</h3>
+            <p>Scenarios and searches separate the policy you can choose from the mechanics that must remain true.</p>
+          </article>
+        </div>
+
+        <div class="money-path" aria-label="Conceptual financial path from income through decisions to outcomes">
+          <span>income</span>
+          <i aria-hidden="true"></i>
+          <span>tax + obligations</span>
+          <i aria-hidden="true"></i>
+          <span>need</span>
+          <i aria-hidden="true"></i>
+          <span>draw sources</span>
+          <i aria-hidden="true"></i>
+          <span>future state</span>
+        </div>
+        <p class="fine-print fine-print--light">
+          The labels above are a conceptual path, not a screenshot. The product examples below use the real engine and real Seculana syntax.
+        </p>
+      </div>
     </section>
 
-    <section id="proof" class="section-shell placeholder-section">
-      <p class="eyebrow">Proof</p>
-      <h2>The model can explain what happened.</h2>
-      <CapturePlaceholder id="CAP-002" alt="Seculana Playground showing the financial story of a value for a specific year." />
+    <section id="questions" class="story-section">
+      <div class="section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">The shift</p>
+          <h2>Do more than calculate the plan. Ask it questions.</h2>
+          <p class="section-lede">
+            Once the financial system is explicit, Seculana can wrap the same verified model in
+            comparison, search, uncertainty, and explanation.
+          </p>
+        </div>
+
+        <div class="question-grid">
+          <article>
+            <span class="question-word">What if?</span>
+            <h3>Scenarios</h3>
+            <p>Replace part of the model and compare the consequences side by side.</p>
+            <StatusChip tone="live" label="Implemented" />
+          </article>
+          <article>
+            <span class="question-word">What exactly works?</span>
+            <h3>Solve + best</h3>
+            <p>Find a value that meets a target or the best value inside a range.</p>
+            <StatusChip tone="live" label="Implemented" />
+          </article>
+          <article>
+            <span class="question-word">Which policy wins?</span>
+            <h3>Optimize</h3>
+            <p>Choose several decisions together across a whole plan, subject to constraints.</p>
+            <StatusChip tone="live" label="Implemented" />
+          </article>
+          <article>
+            <span class="question-word">What matters most?</span>
+            <h3>Sensitivity</h3>
+            <p>Vary assumptions and see which ones move the result.</p>
+            <StatusChip tone="live" label="Implemented" />
+          </article>
+          <article>
+            <span class="question-word">How fragile is it?</span>
+            <h3>Monte Carlo</h3>
+            <p>Run reproducible futures, then summarize percentiles, chances, and constraints.</p>
+            <StatusChip tone="live" label="Implemented" />
+          </article>
+          <article>
+            <span class="question-word">Why this number?</span>
+            <h3>Story + explain + trace</h3>
+            <p>Move from the financial story to the model explanation to detailed calculation proof.</p>
+            <StatusChip tone="live" label="Implemented" />
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="roadmap" class="section-shell placeholder-section">
-      <p class="eyebrow">Road ahead</p>
-      <h2>Built in small, testable phases.</h2>
-      <p>Implemented work, recorded roadmap and exploratory frontier ideas will be shown as visibly different things.</p>
+    <section id="proof" class="story-section story-section--proof">
+      <div class="section-shell proof-layout">
+        <div class="proof-copy">
+          <p class="eyebrow">The proof beat</p>
+          <h2>The model can tell you what happened.</h2>
+          <p class="section-lede">
+            Phase 70 added a financial story for a value in a year. Instead of hunting through
+            wide tables and chaining several commands, a reader can ask for the story of a balance,
+            draw, transfer, or money value.
+          </p>
+          <div class="terminal-fragment" aria-label="Seculana story command example">
+            <code>$ seculana explain examples/lise-and-omar.sec Lise.Rrsp --year 2034 --story</code>
+          </div>
+          <p>
+            The project measures comprehension explicitly. On the tested questions, Lise and Omar
+            moved from <strong>5 of 10</strong> answered whole to <strong>9 of 10</strong> after
+            the story layer. Maren and Dev moved from <strong>3 to 6</strong>; example 004 moved
+            from <strong>4 of 9 to 8 of 9</strong>.
+          </p>
+          <p class="fine-print">
+            Those scores describe the repository's defined comprehension questions and tested models.
+            They are not a general benchmark.
+          </p>
+        </div>
+        <div class="proof-media">
+          <CapturePlaceholder
+            id="CAP-002"
+            alt="Seculana Playground showing the financial story of Lise's RRSP in 2034 above the Why explanation."
+            aspect="standard"
+          />
+          <p class="capture-caption">Planned first authentic product capture: the new story layer inside the Playground.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="join" class="section-shell closing-section">
-      <p class="eyebrow">Invitation</p>
-      <h2>Bring Seculana a hard financial model.</h2>
-      <p>The public engagement path will be added once the product repository, licence and contribution channel are ready.</p>
+    <section class="story-section story-section--showcase">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow eyebrow--light">Show off</p>
+          <h2>One retirement model. Mandatory flows, taxes, draw order, optimization, sensitivity, and chance.</h2>
+          <p class="section-lede">
+            Lise and Omar are an invented retired couple in British Columbia. Their public example
+            is a planning sketch, not advice, built to make the interactions visible.
+          </p>
+        </div>
+
+        <div class="showcase-code-grid">
+          <div class="code-panel">
+            <p class="code-panel-label">Choose a withdrawal order</p>
+            <pre><code><span class="code-key">optimize</span> BestOrder {
+    <span class="code-key">vary order of</span> Living
+    <span class="code-key">for highest</span> EstateToday
+    <span class="code-key">keep</span> YearsShort == 0
+}</code></pre>
+          </div>
+          <div class="code-panel">
+            <p class="code-panel-label">Then let markets move</p>
+            <pre><code><span class="code-key">explore</span> Risk {
+    <span class="code-key">scenario</span> Markets
+    <span class="code-key">runs</span> 500
+    <span class="code-key">seed</span> 7
+    <span class="code-key">show</span> EstateToday, TotalTax
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="showcase-media-grid">
+          <div>
+            <CapturePlaceholder
+              id="CAP-003"
+              alt="Lise and Omar Glance report with key result cards, account views, and financial flows."
+              aspect="standard"
+            />
+            <p class="capture-caption capture-caption--light">The plan at a glance.</p>
+          </div>
+          <div>
+            <CapturePlaceholder
+              id="CAP-004"
+              alt="Lise and Omar uncertainty report showing distributions, savings paths, and chance of shortfall."
+              aspect="standard"
+            />
+            <p class="capture-caption capture-caption--light">What changes when markets move.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="section-shell architecture-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Credibility</p>
+          <h2>Readable on the surface. Deterministic underneath.</h2>
+          <p class="section-lede">
+            Seculana parses the model, binds names and types, discovers dependencies, and evaluates
+            the verified model. Search and uncertainty features orchestrate runs rather than becoming
+            a second source of financial truth.
+          </p>
+        </div>
+
+        <div class="pipeline" aria-label="Seculana processing pipeline">
+          <div><strong>Source</strong><span>financial intent</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>Parse</strong><span>syntax + AST</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>Bind</strong><span>types + dependencies</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>Evaluate</strong><span>period by period</span></div>
+          <i aria-hidden="true"></i>
+          <div><strong>Observe</strong><span>results + explanation</span></div>
+        </div>
+
+        <div class="trust-grid">
+          <article><strong>Exact money</strong><span>Decimal arithmetic and money kept to cents.</span></article>
+          <article><strong>Typed ideas</strong><span>Money, rates, optional values, dates, tables, dimensions.</span></article>
+          <article><strong>Visible rules</strong><span>Financial libraries are ordinary Seculana code you can inspect.</span></article>
+          <article><strong>Traceable answers</strong><span>Stories, explanation, trace, debugger, and reports all sit on the engine.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="story-section story-section--roadmap">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow">The road ahead</p>
+          <h2>The next work is about making serious models easier to understand.</h2>
+          <p class="section-lede">
+            Seculana is built in explicit phases. The website keeps shipped work, recorded roadmap,
+            and exploratory ideas visually separate.
+          </p>
+        </div>
+
+        <div class="roadmap-now">
+          <StatusChip tone="live" label="Complete" />
+          <div>
+            <strong>Phase 70 · The story of a value</strong>
+            <span>Financial stories across CLI, REPL, MCP, Playground Why?, and reports.</span>
+          </div>
+        </div>
+
+        <div class="roadmap-grid" aria-label="Recorded Seculana roadmap">
+          <article><StatusChip tone="next" label="71" /><h3>Documentation from comments</h3><p>Reference help where the model and libraries define their names.</p></article>
+          <article><StatusChip tone="next" label="72" /><h3>Roles + readable results</h3><p>Results, assumptions, mandatory flows, shortfalls, and internals know their role.</p></article>
+          <article><StatusChip tone="next" label="73" /><h3>The model grid</h3><p>A rich inspection surface over the engine's results, stories, traces, and dependencies.</p></article>
+          <article><StatusChip tone="next" label="74" /><h3>Starting + fixing</h3><p>Starter models and quick fixes for common language mistakes.</p></article>
+          <article><StatusChip tone="next" label="75" /><h3>A workbook with meaning</h3><p>Excel output that carries semantic structure and optional audit information.</p></article>
+          <article><StatusChip tone="next" label="76–78" /><h3>Analysis, terminal, abroad</h3><p>Stable Python/R results, a terminal viewer, then broader currency and locale support.</p></article>
+        </div>
+
+        <div class="frontier">
+          <div>
+            <StatusChip tone="frontier" label="Exploratory frontier" />
+            <h3>What if the question becomes the starting point?</h3>
+          </div>
+          <p>
+            A future planner could begin with a required spending path and reason over available
+            actions: mandatory withdrawals first, then choices among accounts, wages, dividends,
+            transfers, and other sources. The planner would propose; the existing deterministic
+            engine would still verify. This is an idea under exploration, not a promised feature.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="story-section closing-section">
+      <div class="section-shell closing-grid">
+        <div>
+          <p class="eyebrow">The invitation</p>
+          <h2>Bring Seculana a hard financial model.</h2>
+        </div>
+        <div class="closing-copy">
+          <p>
+            The most useful challenge is not “can it calculate this formula?” It is a real modeling
+            problem with state, policy, tax, constraints, uncertainty, or competing objectives.
+          </p>
+          <p>
+            Bring an invented or safely sanitized case. Tell us what makes it hard and what a
+            convincing answer would need to explain.
+          </p>
+          <a class="button button--solid" href={modelChallengeUrl}>Submit a model challenge</a>
+          <p class="fine-print">
+            This public channel is for model challenges and product feedback. It is not yet an
+            invitation to contribute code; the product repository and licence are still private decisions.
+          </p>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer section-shell">
-    <p>Seculana-Web is being built in public, one reviewable increment at a time.</p>
+    <p><strong>Seculana</strong> · Financial models that read like the plan.</p>
+    <p>Site work is public and incremental. Product screenshots remain authentic captures from the real engine.</p>
   </footer>
 </BaseLayout>

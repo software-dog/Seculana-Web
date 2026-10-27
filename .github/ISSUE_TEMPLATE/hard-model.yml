@@ -1,0 +1,44 @@
+name: Bring a hard financial model
+description: Challenge Seculana with a difficult, representative modeling problem.
+title: "[Model challenge] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for bringing Seculana a hard problem.
+
+        This public issue is for model challenges and product feedback, not code contributions. Please use invented, anonymized, or safely sanitized figures. Do not post private financial records, account numbers, tax identifiers, or other sensitive personal information.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: What are you trying to decide?
+      description: Describe the financial question before describing the mechanics.
+      placeholder: "For example: Can this household fund retirement spending while choosing among several taxable and tax-free sources?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: hard
+    attributes:
+      label: What makes this model hard?
+      description: Name the interactions, constraints, state, uncertainty, or policy choices that make ordinary spreadsheet modeling awkward.
+    validations:
+      required: true
+
+  - type: textarea
+    id: shape
+    attributes:
+      label: What goes in, and what answer should come out?
+      description: Use synthetic or sanitized values if an example helps.
+    validations:
+      required: true
+
+  - type: textarea
+    id: success
+    attributes:
+      label: What would a convincing Seculana solution demonstrate?
+      description: Tell us what would make you trust that the model captured the real problem.
+    validations:
+      required: false
