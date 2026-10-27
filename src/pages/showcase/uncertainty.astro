@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CapturePlaceholder from '../../components/CapturePlaceholder.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import StatusChip from '../../components/StatusChip.astro';
+
+const home = import.meta.env.BASE_URL;
+---
+<BaseLayout
+  title="One plan, many futures | Seculana"
+  description="See how Seculana models uncertainty with stable random draws, Monte Carlo explorations, reproducible seeds, and reports of distributions, paths, shortfall chances, and correlations."
+>
+  <SiteHeader />
+
+  <main id="main" class="deep-page">
+    <section class="deep-hero uncertainty-hero section-shell">
+      <a class="back-link" href={`${home}showcase/decisions/`}>← Back to decisions</a>
+      <p class="eyebrow">Uncertainty without losing the model</p>
+      <h1>One plan. Many futures.</h1>
+      <p class="lede">
+        The deterministic plan still matters. In an ordinary run, random assumptions use their
+        ordinary value. Ask for Monte Carlo runs and those same declarations draw reproducible
+        futures instead.
+      </p>
+
+      <div class="certainty-switch" aria-label="How a random value behaves in ordinary and Monte Carlo runs">
+        <div>
+          <span>Ordinary run</span>
+          <strong>Returns = 5%</strong>
+          <small>the distribution's mean</small>
+        </div>
+        <i aria-hidden="true"></i>
+        <div>
+          <span>Monte Carlo</span>
+          <strong>Returns = a draw</strong>
+          <small>same seed + same run → same draw</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--ink">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow eyebrow--light">1 · Put uncertainty where it belongs</p>
+          <h2>The assumption moves. The financial semantics do not.</h2>
+          <p class="section-lede">
+            Lise and Omar's base plan assumes 5% investment returns. The Markets scenario replaces
+            that one assumption with a normal draw whose mean is still 5%, with an 11% standard deviation.
+          </p>
+          <StatusChip tone="live" label="Implemented" />
+        </div>
+        <div class="code-panel">
+          <p class="code-panel-label">examples/lise-and-omar.sec</p>
+          <pre><code><span class="code-key">scenario</span> Markets &#123;
+    let Returns: series&lt;rate&gt; = normal(5%, 11%)
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell distribution-deck" aria-label="Selected random mechanisms available in Seculana">
+        <div><strong>normal</strong><span>mean + spread</span></div>
+        <div><strong>lognormal</strong><span>positive, skewed</span></div>
+        <div><strong>triangular / PERT</strong><span>low · likely · high</span></div>
+        <div><strong>chance</strong><span>true / false events</span></div>
+        <div><strong>sample</strong><span>draw from a table</span></div>
+        <div><strong>correlate</strong><span>move values together</span></div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--proof">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow">2 · Repeat the whole plan</p>
+          <h2>A run is a future, not a detached formula.</h2>
+          <p class="section-lede">
+            Each future still contains pensions, taxes, minimum withdrawals, draws, balances,
+            shortfalls, and every other rule in the model. Only the assumptions that draw are different.
+          </p>
+        </div>
+        <div class="code-panel code-panel--light">
+          <p class="code-panel-label">500 reproducible futures</p>
+          <pre><code><span class="code-key">explore</span> Risk &#123;
+    <span class="code-key">scenario</span> Markets
+    <span class="code-key">runs</span> 500
+    <span class="code-key">seed</span> 7
+    <span class="code-key">show</span> EstateToday, TotalTax
+&#125;</code></pre>
+        </div>
+      </div>
+
+      <div class="section-shell run-grid" aria-label="Conceptual Monte Carlo runs">
+        <div><span>run 1</span><i style="--p: 44%"></i><small>same model</small></div>
+        <div><span>run 2</span><i style="--p: 67%"></i><small>different draws</small></div>
+        <div><span>run 3</span><i style="--p: 31%"></i><small>same seed reproduces it</small></div>
+        <div><span>…</span><i style="--p: 55%"></i><small>500 futures</small></div>
+      </div>
+      <p class="section-shell fine-print">
+        The bars are conceptual run identities, not Seculana output values.
+      </p>
+    </section>
+
+    <section class="story-section">
+      <div class="section-shell">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow">3 · Summarize the spread</p>
+          <h2>The answer becomes a distribution.</h2>
+          <p class="section-lede">
+            A single ending estate is no longer enough. Reports can show the distribution itself,
+            how the spread changes over time, representative paths, the chance of shortfall, and
+            which outcomes move together.
+          </p>
+        </div>
+
+        <div class="chance-kinds">
+          <article><span>Histogram</span><strong>Where do outcomes land?</strong><small>median marked</small></article>
+          <article><span>Box</span><strong>How wide is each year's spread?</strong><small>5th through 95th</small></article>
+          <article><span>Spaghetti</span><strong>What do whole paths look like?</strong><small>50 representative runs</small></article>
+          <article><span>Chance</span><strong>How often does a condition happen?</strong><small>including ruin by then</small></article>
+          <article><span>Correlation</span><strong>What moves together?</strong><small>rank correlation</small></article>
+          <article><span>Coverage</span><strong>What pays the need?</strong><small>shortfall stays visible</small></article>
+        </div>
+
+        <div class="fan-concept" aria-label="Conceptual percentile fan">
+          <div class="fan-axis"><span>early</span><span>late</span></div>
+          <div class="fan-layer fan-layer--95"></div>
+          <div class="fan-layer fan-layer--75"></div>
+          <div class="fan-layer fan-layer--50"></div>
+          <div class="fan-line"></div>
+        </div>
+        <p class="fine-print">
+          Conceptual percentile fan only. The authentic charts below come from Seculana's report renderer.
+        </p>
+      </div>
+    </section>
+
+    <section class="story-section story-section--showcase">
+      <div class="section-shell uncertainty-proof">
+        <div class="uncertainty-proof__copy">
+          <p class="eyebrow eyebrow--light">4 · Let Seculana draw it</p>
+          <h2>A self-contained report turns the runs into evidence.</h2>
+          <p class="section-lede">
+            The Chance report reuses the same 500 runs across its charts. The figures are worked out
+            by Seculana; the page is the renderer, not a second calculation engine.
+          </p>
+
+          <div class="code-panel">
+            <p class="code-panel-label">report Chance</p>
+            <pre><code><span class="code-key">report</span> Chance &#123;
+    chart histogram EstateToday over Risk
+    chart box Savings over Risk from 2030 to 2055
+    chart spaghetti Savings over Risk
+    chart chance Short over Risk
+    chart correlation EstateToday, TotalTax, YearsShort over Risk
+    chart coverage Spending by IncomeAfterTax, Living.Paid
+&#125;</code></pre>
+          </div>
+        </div>
+
+        <div>
+          <CapturePlaceholder
+            id="CAP-004"
+            alt="Lise and Omar uncertainty report showing the distribution of estate outcomes across 500 market futures."
+            aspect="standard"
+          />
+          <p class="capture-caption capture-caption--light">
+            Authentic capture pending. CAP-004 asks for the real EstateToday histogram over 500 runs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section story-section--roadmap">
+      <div class="section-shell deep-split">
+        <div>
+          <p class="eyebrow">5 · Reproducible chance</p>
+          <h2>Random does not have to mean untraceable.</h2>
+          <p class="section-lede">
+            Draws are keyed to the declaration and call that owns them. Repeat the same exploration
+            with the same seed and run number and the draw repeats. Editing unrelated code does not
+            shuffle the sample underneath you.
+          </p>
+        </div>
+        <div class="repro-card">
+          <span>seed 7 · run 143 · Returns#1</span>
+          <strong>same identity</strong>
+          <i aria-hidden="true"></i>
+          <strong>same draw</strong>
+          <small>until the thing that owns the draw is renamed or changed</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section closing-section">
+      <div class="section-shell closing-grid">
+        <div>
+          <p class="eyebrow">The distinction</p>
+          <h2>Uncertainty is not prophecy.</h2>
+        </div>
+        <div class="closing-copy">
+          <p>
+            Monte Carlo does not tell you what will happen. It tells you what this financial system
+            does across the futures implied by the assumptions you wrote.
+          </p>
+          <p>
+            That keeps the question inspectable: change the distribution, correlation, policy, or
+            constraint and run the same model again.
+          </p>
+          <a class="button button--solid" href={`${home}#proof`}>Back to the main story</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell">
+    <p><strong>Seculana</strong> · One plan, many futures.</p>
+    <p>Conceptual graphics are labelled. Product proof remains authentic Seculana output.</p>
+  </footer>
+</BaseLayout>
