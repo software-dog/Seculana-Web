@@ -36,6 +36,7 @@ Status: this commit
 - Make checkpoints explicit so future work can be reviewed incrementally.
 
 ### Increment 0.3 — Live-repository reconnaissance
+Status: complete
 
 Inspect Loom and create `docs/SOURCE-AUDIT.md` containing:
 
@@ -50,6 +51,11 @@ Inspect Loom and create `docs/SOURCE-AUDIT.md` containing:
 - discrepancies between the intake snapshot and live repository.
 
 **Gate:** no substantive public-facing copy is written until this audit exists.
+
+### Increment 0.4 — Visual collaboration contract
+Status: complete
+
+Create `docs/VISUAL-COLLABORATION.md` so authentic Seculana media can be requested and integrated without blocking implementation. Product screenshots remain real captures; explanatory diagrams may be native HTML/CSS/SVG.
 
 ## Phase 1 — Story skeleton
 
