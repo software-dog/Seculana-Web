@@ -133,6 +133,7 @@ Demonstrate verified examples of:
 Pair syntax with small explanatory visuals.
 
 ### Increment 2.2 — Decisions and inverse questions
+Status: complete
 
 Demonstrate, as currently supported:
 

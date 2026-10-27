@@ -172,12 +172,61 @@ For this capture:
 
 ## CAP-005 — A policy being chosen
 
-**Status:** Planned, not ready  
-**Tool:** Snagit or Camtasia
+**Status:** Ready  
+**Priority:** Fourth  
+**Tool:** Snagit  
+**Target filename:** `public/media/captures/lise-omar-best-order.png`  
+**Placement:** Decision-engine showcase, optimization section  
+**Desired shape:** roughly 3:2 landscape  
+**Alt text:** Seculana Playground optimizer showing the chosen withdrawal order for Lise and Omar and the no-shortfall constraint.
 
-Likely subject: optimizer builder / withdrawal-order decision view for Lise and Omar.
+### Purpose
 
-Do not capture yet. The Phase 2 composition will determine whether this is better as a still or a short interaction.
+This is the visual proof for the claim that Seculana can search over policy while the deterministic model remains the authority.
+
+The visitor should see an actual optimization answer, not merely an `optimize` block.
+
+### Prepare
+
+Open the public Lise and Omar model in the current Playground:
+
+```text
+seculana play examples/lise-and-omar.sec
+```
+
+Open **Optimize**. The model already contains `BestOrder`:
+
+```text
+optimize BestOrder {
+    vary order of Living
+    for highest EstateToday
+    keep YearsShort == 0
+}
+```
+
+Run the model's **BestOrder** optimization.
+
+The current Playground manual says the Optimize view can run optimizations already written in the model and shows the choice, result, constraints, the orders tried, and the block as the model would write it.
+
+### Frame
+
+Prefer a result state that visibly includes:
+
+- **BestOrder** or enough context to identify the optimization;
+- the **chosen withdrawal order**;
+- the objective, **EstateToday**;
+- the constraint **YearsShort == 0**, with its successful result;
+- several of the orders tried, if they fit without making the important text tiny.
+
+Include enough surrounding Playground chrome to establish that this is the real product, but let the optimization answer dominate the frame.
+
+### Capture notes
+
+- Capture after the optimization has completed, not while progress is still moving.
+- Do not click **Write the answer into the text** before the capture. We want the optimizer's answer visible as an answer.
+- Do not include the AI assistant.
+- If the optimizer result has multiple collapsible/detail areas, prioritize the chosen order and the constraint over the full search history.
+- Keep the cursor away from the chosen order and result values.
 
 ## CAP-006 — Chance in motion
 
