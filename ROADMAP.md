@@ -75,7 +75,16 @@ Create the smallest maintainable static-site foundation.
 
 **Gate:** clean build from a fresh checkout.
 
+### Increment 1.1a — GitHub Pages preview
+Status: workflow ready; repository setting pending
+
+- Build and upload the static site on every push to `main`.
+- Deploy through the `github-pages` environment.
+- Repository owner must enable **Settings → Pages → Source → GitHub Actions** once; the connector cannot change that repository setting.
+- After enablement, the next push should publish the preview automatically.
+
 ### Increment 1.2 — Home-page narrative skeleton
+Status: complete
 
 Build the complete story arc using verified copy but minimal ornament:
 
