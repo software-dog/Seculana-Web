@@ -60,6 +60,7 @@ Create `docs/VISUAL-COLLABORATION.md` so authentic Seculana media can be request
 ## Phase 1 — Story skeleton
 
 ### Increment 1.1 — Technical foundation
+Status: complete
 
 Create the smallest maintainable static-site foundation.
 
