@@ -1,0 +1,22 @@
+---
+interface Props {
+  id: string;
+  alt: string;
+  src?: string;
+  aspect?: 'wide' | 'standard' | 'square';
+}
+
+const { id, alt, src, aspect = 'wide' } = Astro.props;
+const assetPath = src ? `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}` : undefined;
+---
+<figure class:list={["capture", `capture--${aspect}`]} data-capture-id={id}>
+  {assetPath ? (
+    <img src={assetPath} alt={alt} loading="lazy" decoding="async" />
+  ) : (
+    <div class="capture__placeholder" role="img" aria-label={alt}>
+      <span class="capture__eyebrow">Authentic capture pending</span>
+      <strong>{id}</strong>
+      <span>{alt}</span>
+    </div>
+  )}
+</figure>

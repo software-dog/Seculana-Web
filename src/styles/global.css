@@ -1,0 +1,108 @@
+:root {
+  color-scheme: light;
+  --paper: #f4f0e8;
+  --paper-deep: #e7dfd1;
+  --ink: #171916;
+  --muted: #5d625a;
+  --line: color-mix(in srgb, var(--ink) 18%, transparent);
+  --signal: #22543d;
+  --signal-soft: #dfe9df;
+  --code: #111713;
+  --code-ink: #eaf0e9;
+  --max: 74rem;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+
+.skip-link {
+  position: fixed;
+  inset: 0 auto auto 0;
+  transform: translateY(-120%);
+  background: var(--ink);
+  color: white;
+  padding: .75rem 1rem;
+  z-index: 100;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.site-header {
+  width: min(calc(100% - 2rem), var(--max));
+  margin: 0 auto;
+  min-height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+.wordmark { font-weight: 800; letter-spacing: -.035em; text-decoration: none; font-size: 1.2rem; }
+nav { display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: .9rem; }
+nav a { color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+nav a:hover, nav a:focus-visible { color: var(--ink); }
+
+.section-shell { width: min(calc(100% - 2rem), var(--max)); margin-inline: auto; }
+.hero { padding: clamp(5rem, 11vw, 9rem) 0 clamp(4rem, 8vw, 7rem); }
+.eyebrow { margin: 0 0 1rem; text-transform: uppercase; letter-spacing: .13em; font-size: .75rem; font-weight: 750; color: var(--signal); }
+h1, h2 { text-wrap: balance; letter-spacing: -.045em; line-height: .98; margin: 0; }
+h1 { max-width: 16ch; font-size: clamp(3.3rem, 8vw, 7.4rem); }
+h2 { max-width: 18ch; font-size: clamp(2.4rem, 5vw, 4.8rem); }
+.lede, .placeholder-section > p:last-child, .closing-section > p:last-child {
+  max-width: 48rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+.lede { margin: 2rem 0 3rem; }
+
+.hero-code {
+  max-width: 52rem;
+  background: var(--code);
+  color: var(--code-ink);
+  border-radius: 1.2rem;
+  box-shadow: 0 1.5rem 4rem color-mix(in srgb, var(--ink) 18%, transparent);
+  overflow: auto;
+}
+pre { margin: 0; padding: clamp(1.25rem, 3vw, 2rem); font: 500 clamp(.86rem, 1.7vw, 1.05rem)/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+.placeholder-section, .closing-section { padding: clamp(5rem, 9vw, 8rem) 0; border-top: 1px solid var(--line); }
+.capture { margin: 3rem 0 0; }
+.capture--wide { aspect-ratio: 16 / 9; }
+.capture--standard { aspect-ratio: 3 / 2; }
+.capture--square { aspect-ratio: 1; }
+.capture img, .capture__placeholder { width: 100%; height: 100%; border-radius: 1rem; }
+.capture img { object-fit: cover; }
+.capture__placeholder {
+  display: grid;
+  place-content: center;
+  gap: .75rem;
+  padding: 2rem;
+  text-align: center;
+  background: repeating-linear-gradient(135deg, var(--signal-soft), var(--signal-soft) 12px, var(--paper-deep) 12px, var(--paper-deep) 24px);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.capture__placeholder strong { color: var(--ink); font-size: clamp(1.5rem, 4vw, 3rem); }
+.capture__eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .7rem; font-weight: 800; color: var(--signal); }
+
+.closing-section { min-height: 60vh; display: grid; align-content: center; }
+.site-footer { border-top: 1px solid var(--line); padding-block: 2rem 3rem; color: var(--muted); font-size: .9rem; }
+
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 4px; }
+
+@media (max-width: 700px) {
+  .site-header { align-items: flex-start; padding-block: 1.1rem; }
+  nav { justify-content: flex-end; gap: .7rem 1rem; }
+  .hero { padding-top: 4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
