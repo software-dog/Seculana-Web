@@ -146,6 +146,7 @@ Demonstrate, as currently supported:
 Make the distinction between calculation, policy, search, and explanation visible.
 
 ### Increment 2.3 — Uncertainty and reports
+Status: complete
 
 Show verified Monte Carlo/uncertainty/report capabilities. Prefer real Seculana output once captures are supplied.
 
